@@ -42,6 +42,7 @@ func brewIt(cmd *cmdr.Command, remainArgs []string) (err error) {
 `, formula, ver, tap, ver, verS, ref, actor)
 
 	var sha256table map[string]string
+	log.Debugf("> loadShaFile ...")
 	sha256table, err = loadShaFile(cmdr.GetStringRP(prefix, "sha256file"))
 	if err != nil {
 		return
@@ -49,6 +50,7 @@ func brewIt(cmd *cmdr.Command, remainArgs []string) (err error) {
 
 	var formulaFile string
 	var repo *git.Repository
+	log.Debugf("> cloneToLocal ...")
 	formulaFile, repo, err = cloneToLocal(tap, actor, token, formula)
 	if err != nil {
 		return
@@ -56,6 +58,7 @@ func brewIt(cmd *cmdr.Command, remainArgs []string) (err error) {
 	log.Tracef("repo cloned: %v", repo)
 
 	var count int
+	log.Debugf("> updateFormulaFile ...")
 	count, err = updateFormulaFile(formulaFile, ver, verS, sha256table)
 	if err != nil {
 		return
@@ -110,6 +113,7 @@ func updateFormulaFile(formulaFile, ver, verS string, sha256table map[string]str
 	}
 	defer file.Close()
 
+	log.Debugf("> creating %v.new ...", formulaFile)
 	nf, err = os.Create(formulaFile + ".new")
 	if err != nil {
 		//log.Fatal(err)
@@ -122,6 +126,7 @@ func updateFormulaFile(formulaFile, ver, verS string, sha256table map[string]str
 	urlRE := regexp.MustCompile(`(url[ \t]+['"])(.+?)(['"])`)
 	shaRE := regexp.MustCompile(`(sha256[ \t]+['"])(.+?)(['"])`)
 
+	log.Debugf("> scanning %v ...", formulaFile)
 	scanner := bufio.NewScanner(file)
 	// optionally, resize scanner's capacity for lines over 64K, see next example
 	for scanner.Scan() {
