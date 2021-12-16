@@ -194,11 +194,16 @@ func cloneToLocal(tap, actor, token, formula string) (formulaFile string, repo *
 		}
 	}
 
+	log.Debugf("       actor: %v", actor)
+	log.Debugf("       token: %v", token)
+	log.Debugf("  clone from: %v", url)
 	repo, err = git.PlainClone(tgtDir, false, &git.CloneOptions{
 		URL:      url,
 		Progress: os.Stdout,
 	})
-	fmt.Printf("repo cloned: %v\n", repo)
+	if err == nil {
+		fmt.Printf("repo cloned: %v\n", repo)
+	}
 	return
 }
 
