@@ -99,6 +99,10 @@ func commitToTap(repo *git.Repository, formula, ver, actor, actorMail, token, pr
 							Auth: &http.TokenAuth{
 								Token: token,
 							},
+							//Auth: &http.BasicAuth{
+							//	Username: actor, // yes, this can be anything except an empty string
+							//	Password: token,
+							//},
 							Progress: os.Stdout,
 						})
 						if err == nil {
@@ -221,13 +225,14 @@ func cloneToLocal(tap, actor, token, formula string) (formulaFile string, repo *
 	log.Debugf("       token: %v", token)
 	log.Debugf("  clone from: %v", url)
 	repo, err = git.PlainClone(tgtDir, false, &git.CloneOptions{
-		//Auth: &http.BasicAuth{
-		//	Username: actor, // yes, this can be anything except an empty string
-		//	Password: token,
-		//},
-		Auth: &http.TokenAuth{
-			Token: token,
+		Auth: &http.BasicAuth{
+			Username: actor, // yes, this can be anything except an empty string
+			Password: token,
 		},
+		// cannot work:
+		//Auth: &http.TokenAuth{
+		//	Token: token,
+		//},
 		URL:      url,
 		Progress: os.Stdout,
 	})
