@@ -6,6 +6,7 @@ import (
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
+	"github.com/go-git/go-git/v5/plumbing/transport/http"
 	"github.com/hedzr/cmdr"
 	"github.com/hedzr/log"
 	"github.com/hedzr/log/dir"
@@ -198,6 +199,10 @@ func cloneToLocal(tap, actor, token, formula string) (formulaFile string, repo *
 	log.Debugf("       token: %v", token)
 	log.Debugf("  clone from: %v", url)
 	repo, err = git.PlainClone(tgtDir, false, &git.CloneOptions{
+		Auth: &http.BasicAuth{
+			Username: actor, // yes, this can be anything except an empty string
+			Password: token,
+		},
 		URL:      url,
 		Progress: os.Stdout,
 	})
@@ -220,7 +225,8 @@ func tapToRepoUrl(tap, actor, token string) (url string) {
 		}
 	}
 	if !ok {
-		url = fmt.Sprintf("https://%v:%v@github.com/%v.git", actor, token, tap)
+		//url = fmt.Sprintf("https://%v:%v@github.com/%v.git", actor, token, tap)
+		url = fmt.Sprintf("https://github.com/%v.git", tap)
 	}
 	return
 }
