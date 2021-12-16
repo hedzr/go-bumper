@@ -103,7 +103,8 @@ func commitToTap(repo *git.Repository, formula, ver, actor, actorMail, token, pr
 								Username: actor, // yes, this can be anything except an empty string
 								Password: token,
 							},
-							Progress: os.Stdout,
+							RemoteName: "origin",
+							Progress:   os.Stdout,
 						})
 						if err == nil {
 							log.Debugf("pushed ...")
