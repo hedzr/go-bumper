@@ -94,6 +94,7 @@ func commitToTap(repo *git.Repository, formula, ver, actor, actorMail, token, pr
 				if err == nil {
 					log.Debugf("committed: %v", obj)
 					if cmdr.GetBoolRP(prefix, "push") {
+						log.Debugf("pushing ...")
 						err = repo.Push(&git.PushOptions{
 							Auth: &http.BasicAuth{
 								Username: actor, // yes, this can be anything except an empty string
@@ -101,6 +102,11 @@ func commitToTap(repo *git.Repository, formula, ver, actor, actorMail, token, pr
 							},
 							Progress: os.Stdout,
 						})
+						if err == nil {
+							log.Debugf("pushed ...")
+						} else {
+							log.Errorf("push failed: %v", err)
+						}
 					} else {
 						//patch := obj.Patch(previousCommit)
 					}
@@ -214,7 +220,7 @@ func loadShaFile(shaFile string) (sha256table map[string]string, err error) {
 	for scanner.Scan() {
 		fields := strings.Split(scanner.Text(), " ")
 		filename, sha := fields[len(fields)-1], fields[0]
-		sha256table[filename] = sha
+		sha256table[path.Base(filename)] = sha
 	}
 	return
 }
