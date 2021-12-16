@@ -1,26 +1,25 @@
 package cmdrrel
 
-import "github.com/hedzr/cmdr"
-
-var optHideGenerateCmd, optAddTraceOption cmdr.ExecOption
+//var optHideGenerateCmd, optAddTraceOption cmdr.ExecOption
 
 func init() {
 
-	// hide generate command
-	optHideGenerateCmd = cmdr.WithXrefBuildingHooks(nil, func(root *cmdr.RootCommand, args []string) {
-		if cc := cmdr.FindSubCommand("generate", &root.Command); cc != nil {
-			cc.Hidden = true
-		}
-	})
-
-	// attaches `--trace` to root command
-	// deprecated: instead of `trace.WithTraceEnable(true)`
-	optAddTraceOption = cmdr.WithXrefBuildingHooks(func(root *cmdr.RootCommand, args []string) {
-		cmdr.NewBool(false).
-			Titles("trace", "tr").
-			Description("enable trace mode for tcp/mqtt send/recv data dump", "").
-			AttachToRoot(root)
-	}, nil)
+	//// hide generate command
+	// for cmdr v1.8.x and lower only
+	//optHideGenerateCmd = cmdr.WithXrefBuildingHooks(nil, func(root *cmdr.RootCommand, args []string) {
+	//	if cc := cmdr.FindSubCommand("generate", &root.Command); cc != nil {
+	//		cc.Hidden = true
+	//	}
+	//})
+	//
+	//// attaches `--trace` to root command
+	//// deprecated: instead of `trace.WithTraceEnable(true)`
+	//optAddTraceOption = cmdr.WithXrefBuildingHooks(func(root *cmdr.RootCommand, args []string) {
+	//	cmdr.NewBool(false).
+	//		Titles("trace", "tr").
+	//		Description("enable trace mode for tcp/mqtt send/recv data dump", "").
+	//		AttachToRoot(root)
+	//}, nil)
 
 	//// the following statements show you how to attach an option to a sub-command
 	//optAddServerExtOption = cmdr.WithXrefBuildingHooks(func(root *cmdr.RootCommand, args []string) {
