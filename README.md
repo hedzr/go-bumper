@@ -1,15 +1,15 @@
 # bumper (go-bumper)
 
-Bumper is a golang CLI app to provide the formula versions bumping 
+go-bumper is a golang CLI app to provide the formula versions bumping 
 operation for Homebrew.
 
-We made bumper because `brew bump-formula-pr` cannot update for 
+We made Bumper because `brew bump-formula-pr` cannot update for 
 multiple sha256 values in a formula. I reviewed its source but
 the relevant codes might be [hard to modify](https://github.com/Homebrew/brew/blob/1ca3ed87e28c450a24ee144a23fe2ba8b2a73640/Library/Homebrew/dev-cmd/bump-formula-pr.rb#L145-L341).
 
 So here is go-bumper. For its usage yoo may check the go.yml in 
-[go-faker](https://github.com/hedzr/go-faker) and go-faker releases
-page.
+[go-faker](https://github.com/hedzr/go-faker) and [go-faker releases
+page](https://github.com/hedzr/go-faker/releases).
 
 The flow of go-bumper needs:
 
@@ -26,13 +26,13 @@ go-bumper will:
 
 ## WIP
 
-go-bumper is written for bumping go-faker automatically perfectly. my 
+[go-bumper](https://github.com/hedzr/go-bumper) is written for bumping [go-faker](https://github.com/hedzr/go-faker) automatically perfectly. my 
 old github actions cannot work properly with `brew bump-formula-pr`, 
 because there are three or more urls for darwin/linux and multiple
 cpu arch. As we knew brew can bump-formula-pr fine on a single url
-formula, and go-bumper is yet another one but for multiple urls.
+formula, and [go-bumper](https://github.com/hedzr/go-bumper) is yet another one but for multiple urls.
 
-go-bumper is WIP.
+[go-bumper](https://github.com/hedzr/go-bumper) is still WIP.
 
 ## LICENSE
 
