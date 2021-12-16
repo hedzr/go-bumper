@@ -96,13 +96,13 @@ func commitToTap(repo *git.Repository, formula, ver, actor, actorMail, token, pr
 					if cmdr.GetBoolRP(prefix, "push") {
 						log.Debugf("pushing as %q...", actor)
 						err = repo.Push(&git.PushOptions{
-							Auth: &http.TokenAuth{
-								Token: token,
-							},
-							//Auth: &http.BasicAuth{
-							//	Username: actor, // yes, this can be anything except an empty string
-							//	Password: token,
+							//Auth: &http.TokenAuth{
+							//	Token: token,
 							//},
+							Auth: &http.BasicAuth{
+								Username: actor, // yes, this can be anything except an empty string
+								Password: token,
+							},
 							Progress: os.Stdout,
 						})
 						if err == nil {
