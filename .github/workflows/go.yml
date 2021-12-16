@@ -184,9 +184,9 @@ jobs:
                   7z a ./bin/$APP_NAME-$GOOS-$GOARCH$suf.$suf2 ./bin/$APP_NAME$suf
                   cd ci && 7z a ./bin/$APP_NAME-$GOOS-$GOARCH$suf.$suf2 etc/* && cd ..
                 else
-                  tar -czf ./bin/$APP_NAME-$GOOS-$GOARCH$suf.suf2 ./bin/$APP_NAME$suf -Cci etc
+                  tar -czf ./bin/$APP_NAME-$GOOS-$GOARCH$suf.$suf2 ./bin/$APP_NAME$suf -Cci etc
                 fi
-                sha256sum ./bin/$APP_NAME-$GOOS-$GOARCH$suf.suf2 >> ./bin/binaries.asc
+                sha256sum ./bin/$APP_NAME-$GOOS-$GOARCH$suf.$suf2 >> ./bin/binaries.asc
                 rm -f ./bin/$APP_NAME$suf
               done
             done
