@@ -41,6 +41,21 @@ formula, and [go-bumper](https://github.com/hedzr/go-bumper) is yet another one 
 version pattern: `x.y.z[-xxx]`
 - eg: 1.2.3, 1.2.3-b1, 1.2.3-beta29, 1.2.3-alpha, 1.2.3-7, ...
 
+## GitHub Personal Token
+
+To use bumper, a personal access token with read-write permissions (such as `GH_RW_TOKEN`) should be specified into your repo Secrets section. See go-faker go.yml for instance, the command-line sample:
+
+```bash
+          echo .pr/bin/bumper brew -act $ACTOR -am $ACTOR_EMAIL -f $APP_NAME \
+            -ref $GITHUB_REF -ver $RELEASE_VERSION -t $HOMEBREW_TAP \
+            --sha $BINARIES_ASC \
+            --push
+          .pr/bin/bumper brew -act $ACTOR -am $ACTOR_EMAIL -f $APP_NAME \
+            -ref $GITHUB_REF -ver $RELEASE_VERSION -t $HOMEBREW_TAP \
+            --sha $BINARIES_ASC \
+            --token ${{ secrets.GH_RW_TOKEN }} \
+            --push
+```
 
 
 ## LICENSE
