@@ -94,11 +94,10 @@ func commitToTap(repo *git.Repository, formula, ver, actor, actorMail, token, pr
 				if err == nil {
 					log.Debugf("committed: %v", obj)
 					if cmdr.GetBoolRP(prefix, "push") {
-						log.Debugf("pushing ...")
+						log.Debugf("pushing as %q...", actor)
 						err = repo.Push(&git.PushOptions{
-							Auth: &http.BasicAuth{
-								Username: actor, // yes, this can be anything except an empty string
-								Password: token,
+							Auth: &http.TokenAuth{
+								Token: token,
 							},
 							Progress: os.Stdout,
 						})
@@ -115,24 +114,6 @@ func commitToTap(repo *git.Repository, formula, ver, actor, actorMail, token, pr
 		}
 	}
 	return
-}
-
-func catFile(filename string) {
-	var file *os.File
-	var err error
-	file, err = os.Open(filename)
-	if err != nil {
-		//log.Fatal(err)
-		return
-	}
-	defer file.Close()
-	scanner := bufio.NewScanner(file)
-	// optionally, resize scanner's capacity for lines over 64K, see next example
-	for scanner.Scan() {
-		//fmt.Println(scanner.Text())
-		line := scanner.Text()
-		fmt.Printf("%v\n", line)
-	}
 }
 
 func updateFormulaFile(formulaFile, ver, verS string, sha256table map[string]string) (count int, err error) {
@@ -153,7 +134,7 @@ func updateFormulaFile(formulaFile, ver, verS string, sha256table map[string]str
 	defer nf.Close()
 
 	lastLineIsMatched, lastLine := false, ""
-	verRE := regexp.MustCompile(`\d+\.\d+\.\d`)
+	verRE := regexp.MustCompile(`\d+\.\d+\.\d(-[a-z0-9]+)?`)
 	urlRE := regexp.MustCompile(`(url[ \t]+['"])(.+?)(['"])`)
 	shaRE := regexp.MustCompile(`(sha256[ \t]+['"])(.+?)(['"])`)
 
@@ -240,15 +221,22 @@ func cloneToLocal(tap, actor, token, formula string) (formulaFile string, repo *
 	log.Debugf("       token: %v", token)
 	log.Debugf("  clone from: %v", url)
 	repo, err = git.PlainClone(tgtDir, false, &git.CloneOptions{
-		Auth: &http.BasicAuth{
-			Username: actor, // yes, this can be anything except an empty string
-			Password: token,
+		//Auth: &http.BasicAuth{
+		//	Username: actor, // yes, this can be anything except an empty string
+		//	Password: token,
+		//},
+		Auth: &http.TokenAuth{
+			Token: token,
 		},
 		URL:      url,
 		Progress: os.Stdout,
 	})
 	if err == nil {
 		fmt.Printf("repo cloned: %v\n", repo)
+		rs, _ := repo.Remotes()
+		for _, r := range rs {
+			fmt.Printf("  remote: %v", r.Config().Name)
+		}
 	}
 	return
 }
@@ -270,4 +258,22 @@ func tapToRepoUrl(tap, actor, token string) (url string) {
 		url = fmt.Sprintf("https://github.com/%v.git", tap)
 	}
 	return
+}
+
+func catFile(filename string) {
+	var file *os.File
+	var err error
+	file, err = os.Open(filename)
+	if err != nil {
+		//log.Fatal(err)
+		return
+	}
+	defer file.Close()
+	scanner := bufio.NewScanner(file)
+	// optionally, resize scanner's capacity for lines over 64K, see next example
+	for scanner.Scan() {
+		//fmt.Println(scanner.Text())
+		line := scanner.Text()
+		fmt.Printf("%v\n", line)
+	}
 }

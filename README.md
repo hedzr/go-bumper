@@ -34,6 +34,15 @@ formula, and [go-bumper](https://github.com/hedzr/go-bumper) is yet another one 
 
 [go-bumper](https://github.com/hedzr/go-bumper) is still WIP.
 
+
+
+## Conventions
+
+version pattern: `x.y.z[-xxx]`
+- eg: 1.2.3, 1.2.3-b1, 1.2.3-beta29, 1.2.3-alpha, 1.2.3-7, ...
+
+
+
 ## LICENSE
 
 Apache-2.0
