@@ -187,6 +187,11 @@ func updateFormulaFile(formulaFile, ver, verS string, sha256table map[string]str
 	fmt.Printf("\n%v replaced.\n\n\nNEW CONTENTS:\n", count)
 	catFile(formulaFile + ".new")
 
+	fmt.Println("\n\nbinaries.asc CONTENTS:")
+	for k, v := range sha256table {
+		fmt.Printf("%v => %v\n", k, v)
+	}
+
 	err = dir.DeleteFile(formulaFile)
 	if err == nil {
 		err = os.Rename(formulaFile+".new", formulaFile)
