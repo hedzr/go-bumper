@@ -1,5 +1,9 @@
 # bumper (go-bumper)
 
+[![Go](https://github.com/hedzr/go-bumper/actions/workflows/go.yml/badge.svg)](https://github.com/hedzr/go-bumper/actions/workflows/go.yml)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/hedzr/go-bumper.svg?label=release)](https://github.com/hedzr/go-bumper/releases)
+[![](https://img.shields.io/badge/go-dev-green)](https://pkg.go.dev/github.com/hedzr/go-bumper)
+
 go-bumper is a golang CLI app to provide the formula versions bumping 
 operation for Homebrew.
 
