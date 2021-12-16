@@ -1,6 +1,7 @@
 *_string.go
 output.*
-
+work/
+*.cov
 
 .idea/
 *.iml
