@@ -67,12 +67,12 @@ func brewIt(cmd *cmdr.Command, remainArgs []string) (err error) {
 
 	if count > 0 && repo != nil {
 		fmt.Printf("> committing ...\n")
-		err = commitToTap(repo, formula, ver, actor, actorMail, prefix)
+		err = commitToTap(repo, formula, ver, actor, actorMail, token, prefix)
 	}
 	return
 }
 
-func commitToTap(repo *git.Repository, formula, ver, actor, actorMail, prefix string) (err error) {
+func commitToTap(repo *git.Repository, formula, ver, actor, actorMail, token, prefix string) (err error) {
 	var w *git.Worktree
 	w, err = repo.Worktree()
 	if err == nil {
@@ -94,7 +94,12 @@ func commitToTap(repo *git.Repository, formula, ver, actor, actorMail, prefix st
 				if err == nil {
 					log.Debugf("committed: %v", obj)
 					if cmdr.GetBoolRP(prefix, "push") {
-						err = repo.Push(&git.PushOptions{})
+						err = repo.Push(&git.PushOptions{
+							Auth: &http.BasicAuth{
+								Username: actor, // yes, this can be anything except an empty string
+								Password: token,
+							},
+						})
 					} else {
 						//patch := obj.Patch(previousCommit)
 					}
@@ -103,6 +108,24 @@ func commitToTap(repo *git.Repository, formula, ver, actor, actorMail, prefix st
 		}
 	}
 	return
+}
+
+func catFile(filename string) {
+	var file *os.File
+	var err error
+	file, err = os.Open(filename)
+	if err != nil {
+		//log.Fatal(err)
+		return
+	}
+	defer file.Close()
+	scanner := bufio.NewScanner(file)
+	// optionally, resize scanner's capacity for lines over 64K, see next example
+	for scanner.Scan() {
+		//fmt.Println(scanner.Text())
+		line := scanner.Text()
+		fmt.Printf("%v\n", line)
+	}
 }
 
 func updateFormulaFile(formulaFile, ver, verS string, sha256table map[string]string) (count int, err error) {
@@ -161,7 +184,13 @@ func updateFormulaFile(formulaFile, ver, verS string, sha256table map[string]str
 		return
 	}
 
-	fmt.Printf("\n%v replaced.\n", count)
+	fmt.Printf("\n%v replaced.\n\n\nNEW CONTENTS:\n", count)
+	catFile(formulaFile + ".new")
+
+	err = dir.DeleteFile(formulaFile)
+	if err == nil {
+		err = os.Rename(formulaFile+".new", formulaFile)
+	}
 	return
 }
 
