@@ -220,7 +220,7 @@ func tapToRepoUrl(tap, actor, token string) (url string) {
 		}
 	}
 	if !ok {
-		url = fmt.Sprintf("https://%v:%v@github.com/%v", actor, token, tap)
+		url = fmt.Sprintf("https://%v:%v@github.com/%v.git", actor, token, tap)
 	}
 	return
 }
