@@ -99,6 +99,7 @@ func commitToTap(repo *git.Repository, formula, ver, actor, actorMail, token, pr
 								Username: actor, // yes, this can be anything except an empty string
 								Password: token,
 							},
+							Progress: os.Stdout,
 						})
 					} else {
 						//patch := obj.Patch(previousCommit)
