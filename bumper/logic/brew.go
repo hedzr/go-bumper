@@ -139,7 +139,7 @@ func updateFormulaFile(formulaFile, ver, verS string, sha256table map[string]str
 	defer nf.Close()
 
 	lastLineIsMatched, lastLine := false, ""
-	verRE := regexp.MustCompile(`\d+\.\d+\.\d(-[a-z0-9]+)?`)
+	verRE := regexp.MustCompile(`\d+\.\d+\.\d+(-[a-z0-9]+)?`)
 	urlRE := regexp.MustCompile(`(url[ \t]+['"])(.+?)(['"])`)
 	shaRE := regexp.MustCompile(`(sha256[ \t]+['"])(.+?)(['"])`)
 
