@@ -11,7 +11,7 @@ const (
 	// AppDesc const
 	AppDesc = "A homebrew tap formula bumper. It makes an demo application for `cmdr`"
 	// Version const
-	Version = "0.2.5"
+	Version = "0.2.0"
 	// VersionInt const
-	VersionInt = 0x000205
+	VersionInt = 0x000200
 )
