@@ -4,14 +4,14 @@
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/hedzr/go-bumper.svg?label=release)](https://github.com/hedzr/go-bumper/releases)
 [![](https://img.shields.io/badge/go-dev-green)](https://pkg.go.dev/github.com/hedzr/go-bumper)
 
-go-bumper is a golang CLI app to provide the formula versions bumping 
+go-bumper is a CLI app to provide the formula versions bumping 
 operation for Homebrew.
 
 We made Bumper because `brew bump-formula-pr` cannot update for 
 multiple sha256 values in a formula. I reviewed its source but
 the relevant codes might be [hard to modify](https://github.com/Homebrew/brew/blob/1ca3ed87e28c450a24ee144a23fe2ba8b2a73640/Library/Homebrew/dev-cmd/bump-formula-pr.rb#L145-L341).
 
-So here is go-bumper. For its usage yoo may check the go.yml in 
+So here is go-bumper. For its usage you may check the go.yml in 
 [go-faker](https://github.com/hedzr/go-faker) and [go-faker releases
 page](https://github.com/hedzr/go-faker/releases).
 
@@ -50,15 +50,15 @@ version pattern: `x.y.z[-xxx]`
 To use bumper, a personal access token with read-write permissions (such as `GH_RW_TOKEN`) should be specified into your repo Secrets section. See go-faker go.yml for instance, the command-line sample:
 
 ```bash
-          echo .pr/bin/bumper brew -act $ACTOR -am $ACTOR_EMAIL -f $APP_NAME \
-            -ref $GITHUB_REF -ver $RELEASE_VERSION -t $HOMEBREW_TAP \
-            --sha $BINARIES_ASC \
-            --push
-          .pr/bin/bumper brew -act $ACTOR -am $ACTOR_EMAIL -f $APP_NAME \
-            -ref $GITHUB_REF -ver $RELEASE_VERSION -t $HOMEBREW_TAP \
-            --sha $BINARIES_ASC \
-            --token ${{ secrets.GH_RW_TOKEN }} \
-            --push
+echo .pr/bin/bumper brew -act $ACTOR -am $ACTOR_EMAIL -f $APP_NAME \
+  -ref $GITHUB_REF -ver $RELEASE_VERSION -t $HOMEBREW_TAP \
+  --sha $BINARIES_ASC \
+  --push
+.pr/bin/bumper brew -act $ACTOR -am $ACTOR_EMAIL -f $APP_NAME \
+  -ref $GITHUB_REF -ver $RELEASE_VERSION -t $HOMEBREW_TAP \
+  --sha $BINARIES_ASC \
+  --token ${{ secrets.GH_RW_TOKEN }} \
+  --push
 ```
 
 
