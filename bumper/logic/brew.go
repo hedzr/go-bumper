@@ -3,6 +3,12 @@ package logic
 import (
 	"bufio"
 	"fmt"
+	"os"
+	"path"
+	"regexp"
+	"strings"
+	"time"
+
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
@@ -10,11 +16,6 @@ import (
 	"github.com/hedzr/cmdr"
 	"github.com/hedzr/log"
 	"github.com/hedzr/log/dir"
-	"os"
-	"path"
-	"regexp"
-	"strings"
-	"time"
 )
 
 func brewIt(cmd *cmdr.Command, remainArgs []string) (err error) {
@@ -248,7 +249,7 @@ func cloneToLocal(tap, actor, token, formula string) (formulaFile string, repo *
 }
 
 func tapToRepoUrl(tap, actor, token string) (url string) {
-	url, ok := tap, true
+	url, ok := tap, false
 	if !strings.Contains(url, "://") {
 		ok = false
 	} else {

@@ -11,7 +11,7 @@ func AttachToCmdr(root *cmdr.RootCmdOpt) {
 
 func brewTool(root *cmdr.RootCmdOpt) {
 
-	cc := root.NewSubCommand("brew", "b", "homebrew").
+	cc := cmdr.NewSubCmd().Titles("brew", "b", "homebrew").
 		Description("homebrew tap bumper").
 		Group("").
 		//TailPlaceholder("[text1, text2, ...]").
@@ -34,7 +34,7 @@ func brewTool(root *cmdr.RootCmdOpt) {
 		//		fmt.Printf("[POST] %5d. %s\n", ix, s)
 		//	}
 		//}).
-		Action(brewIt)
+		Action(brewIt).AttachTo(root)
 
 	cmdr.NewString("").
 		Titles("tap", "t").
@@ -104,11 +104,12 @@ func brewTool(root *cmdr.RootCmdOpt) {
 
 func debTool(root *cmdr.RootCmdOpt) {
 
-	cc := root.NewSubCommand("deb", "d").
+	cc := cmdr.NewSubCmd().Titles("deb", "d").
 		Description("deb bumper").
 		Group("").
 		TailPlaceholder("[text1, text2, ...]").
-		Action(debIt)
+		Action(debIt).
+		AttachTo(root)
 
 	cmdr.NewBool().
 		Titles("bool", "b").

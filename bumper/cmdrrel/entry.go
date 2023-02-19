@@ -2,12 +2,13 @@ package cmdrrel
 
 import (
 	"fmt"
+
 	"github.com/hedzr/cmdr"
 	"github.com/hedzr/go-bumper/bumper/app"
 	"github.com/hedzr/go-bumper/bumper/logic"
 	"github.com/hedzr/log"
 	"github.com/hedzr/logex/build"
-	"gopkg.in/hedzr/errors.v2"
+	"gopkg.in/hedzr/errors.v3"
 )
 
 const (
