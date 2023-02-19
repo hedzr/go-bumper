@@ -2,6 +2,12 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"path"
+	"regexp"
+	"strings"
+	"time"
+
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
@@ -10,11 +16,6 @@ import (
 	"github.com/hedzr/log/dir"
 	"github.com/hedzr/logex/build"
 	"golang.org/x/sys/unix"
-	"os"
-	"path"
-	"regexp"
-	"strings"
-	"time"
 )
 
 var pushAllowed bool
@@ -152,7 +153,7 @@ func cloneToLocal(tap, actor, token, formula string) (formulaFile string, repo *
 }
 
 func tapToRepoUrl(tap, actor, token string) (url string) {
-	url, ok := tap, true
+	url, ok := tap, false
 	if !strings.Contains(url, "://") {
 		ok = false
 	} else {
