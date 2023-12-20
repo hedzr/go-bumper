@@ -36,10 +36,6 @@ because there are three or more urls for darwin/linux and multiple
 cpu arch. As we knew brew can bump-formula-pr fine on a single url
 formula, and [go-bumper](https://github.com/hedzr/go-bumper) is yet another one but for multiple urls.
 
-[go-bumper](https://github.com/hedzr/go-bumper) is still WIP.
-
-
-
 ## Conventions
 
 version pattern: `x.y.z[-xxx]`
