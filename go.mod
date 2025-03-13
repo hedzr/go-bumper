@@ -1,6 +1,7 @@
 module github.com/hedzr/go-bumper
 
 go 1.22.7
+toolchain go1.23.7
 
 //replace github.com/hedzr/log => ../src/github.com/hedzr/log
 
@@ -19,7 +20,7 @@ require (
 	github.com/hedzr/cmdr v1.11.26
 	github.com/hedzr/log v1.6.25
 	github.com/hedzr/logex v1.11.26
-	golang.org/x/sys v0.29.0
+	golang.org/x/sys v0.30.0
 	gopkg.in/hedzr/errors.v3 v3.3.5
 )
 
@@ -47,9 +48,9 @@ require (
 	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/skeema/knownhosts v1.3.0 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
-	golang.org/x/crypto v0.32.0 // indirect
-	golang.org/x/net v0.34.0 // indirect
-	golang.org/x/term v0.28.0 // indirect
+	golang.org/x/crypto v0.35.0 // indirect
+	golang.org/x/net v0.36.0 // indirect
+	golang.org/x/term v0.29.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
