@@ -15,7 +15,7 @@ go 1.24.0
 //replace gopkg.in/hedzr/errors.v2 => ../src/github.com/hedzr/errors
 
 require (
-	github.com/go-git/go-git/v5 v5.17.1
+	github.com/go-git/go-git/v5 v5.18.0
 	github.com/hedzr/cmdr v1.11.26
 	github.com/hedzr/log v1.6.25
 	github.com/hedzr/logex v1.11.26
